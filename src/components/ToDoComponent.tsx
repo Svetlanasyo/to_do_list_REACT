@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import 'ToDoComponent.css';
+import './ToDoComponent.css';
 
 
 export interface IToDoComponentProps {
@@ -15,7 +15,7 @@ export class ToDoComponent extends Component<IToDoComponentProps, any> {
             return (
                 <div className='todo'>
                     <img className='todoImage'
-                         src={'www.google.com'}
+                         src={'checkmark.svg'}
                          alt={""}/>
                          <label className='todoNameLabel'> {this.props.toDoName}</label>
                 </div>
@@ -24,7 +24,7 @@ export class ToDoComponent extends Component<IToDoComponentProps, any> {
             return (
                 <div className='todo'>
                     <img className='todoImage'
-                         src={'www.google.com'}
+                         src={'uncheck.svg'}
                         alt={""}/>
                     <label className='todoNameLabel'> {this.props.toDoName}</label>
                 </div>

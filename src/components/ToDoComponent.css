@@ -1,3 +1,6 @@
 .todo {}
-.todoImage{}
+.todoImage{
+    width: 25px;
+    height: 25px;
+}
 .todoNameLabel{}
