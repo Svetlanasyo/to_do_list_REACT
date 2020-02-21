@@ -8,7 +8,7 @@ export interface IToDosComponentProps {
 export interface IToDosComponentState {
 }
 
-export class ToDosListComponent extends React.Component<IToDosComponentProps, IToDosComponentState> {
+export class ToDosListComponent extends Component<IToDosComponentProps, IToDosComponentState> {
 
     private TODOS = [
         {

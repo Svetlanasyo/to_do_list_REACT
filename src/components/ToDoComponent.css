@@ -1,6 +1,21 @@
-.todo {}
-.todoImage{
-    width: 25px;
+.todo {
+    width: 300px;
     height: 25px;
+    left: 25px;
 }
-.todoNameLabel{}
+.todoImage{
+    width: 20px;
+    left: 15px;
+}
+.todoNameLabel{
+    font-size: 12pt;
+    font-family: sans-serif;
+    font-style: italic;
+    text-align: left;
+    color: darkblue;
+    padding-left: 10px;
+    vertical-align: top;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    height: 100%;
+}
