@@ -3,21 +3,29 @@ import './ToDoComponent.css';
 
 
 export interface IToDoComponentProps {
-    toDoName: string;
-    isDone: boolean;
+    todo: {
+        id: number;
+        name: string;
+        isDone: boolean;
+    }
+    onTodoToggle: (todo: {id: number,
+    name: string,
+    isDone: boolean}) => void;
 }
 
 export class ToDoComponent extends Component<IToDoComponentProps, any> {
 
     public render(): React.ReactElement<IToDoComponentProps> {
 
-        if (this.props.isDone) {
+        if (this.props.todo.isDone) {
             return (
                 <div className='todo'>
                     <img className='todoImage'
                          src={'checkmark.svg'}
-                         alt={""}/>
-                         <label className='todoNameLabel'> {this.props.toDoName}</label>
+                         alt={""}
+                         onClick={() => this.props.onTodoToggle(this.props.todo)}
+                    />
+                         <label className='todoNameLabel'> {this.props.todo.name}</label>
                 </div>
             );
         } else {
@@ -25,8 +33,10 @@ export class ToDoComponent extends Component<IToDoComponentProps, any> {
                 <div className='todo'>
                     <img className='todoImage'
                          src={'uncheck.svg'}
-                        alt={""}/>
-                    <label className='todoNameLabel'> {this.props.toDoName}</label>
+                         alt={""}
+                         onClick={() => this.props.onTodoToggle(this.props.todo)}
+                    />
+                    <label className='todoNameLabel'> {this.props.todo.name}</label>
                 </div>
             );
         }
