@@ -8,7 +8,6 @@ export interface IToDosComponentProps {
 export interface IToDosComponentState {
     toDoName: string;
     TODOS: { id: number; name: string; isDone: boolean }[];
-    filteredTODOS: {id: number; name: string; isDone: boolean}[];
     isFindEvent: boolean;
 }
 
@@ -33,11 +32,10 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
                     name: "Go sleep",
                     isDone: true
                 }
-            ], filteredTODOS: [],
+            ],
             isFindEvent: false
         };
         this.addToDo = this.addToDo.bind(this);
-        this.findToDo = this.findToDo.bind(this);
     }
 
     render(): React.ReactElement<any> {
@@ -45,15 +43,17 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
         return (
             <div>
                 <div>
+                    <img src='find.svg' height='25px' width='25px'/>
                     <input
                         type='text'
                         placeholder="Enter new task"
-                        onChange={event => this.setToDoName(event.target.value)}
-                    />
-                    <button onClick={this.findToDo}><img src='find.svg' height='25px' width='25px'/></button>
+                        onChange={event => this.setToDoName(event.target.value)}/>
+
+
+
                     <button onClick={this.addToDo}><img src='plus.svg' height='25px' width='25px'/></button>
                 </div>
-                {(!this.state.isFindEvent ? this.state.TODOS : this.state.filteredTODOS).map((el) => {
+                {this.getTODOS().map((el) => {
                     return <ToDoComponent todo={el} onTodoToggle={this.setIsDone}/>
                 })}
             </div>)
@@ -70,27 +70,20 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
         let id = this.state.TODOS.length;
         this.setState(state => {
             return {
-                ...state, TODOS: [...state.TODOS, {id: id, name: this.state.toDoName, isDone:false}], isFindEvent:false}
-        })
-    }
-
-
-    private findToDo() {
-
-        let value = this
-        function isInTODOS (element:any) {
-            return element.name.includes(value.state.toDoName);
-        }
-
-        this.setState(state => {
-            return {
-                filteredTODOS: state.TODOS.filter(isInTODOS), isFindEvent: true}
+                ...state, TODOS: [...state.TODOS, {id: id, name: this.state.toDoName, isDone:false}], toDoName:""}
         })
     }
 
 
     private setToDoName(value: string) {
         this.setState({toDoName: value, isFindEvent:false})
+
     }
 
+    private getTODOS() {
+        const {toDoName} = this.state;
+
+        return this.state.TODOS.filter(element => element.name.includes(toDoName))
+
+    }
 }
