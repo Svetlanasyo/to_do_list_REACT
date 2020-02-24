@@ -11,6 +11,10 @@ export interface IToDoComponentProps {
     onTodoToggle: (todo: {id: number,
     name: string,
     isDone: boolean}) => void;
+
+    onTodoDelete: (todo: {id: number,
+        name: string,
+        isDone: boolean}) => void;
 }
 
 export class ToDoComponent extends Component<IToDoComponentProps, any> {
@@ -26,6 +30,11 @@ export class ToDoComponent extends Component<IToDoComponentProps, any> {
                          onClick={() => this.props.onTodoToggle(this.props.todo)}
                     />
                          <label className='todoNameLabel'> {this.props.todo.name}</label>
+                    <img className='todoImage'
+                         src={'garbage.svg'}
+                         alt={""}
+                         onClick={() => this.props.onTodoDelete(this.props.todo)}
+                    />
                 </div>
             );
         } else {
@@ -37,6 +46,11 @@ export class ToDoComponent extends Component<IToDoComponentProps, any> {
                          onClick={() => this.props.onTodoToggle(this.props.todo)}
                     />
                     <label className='todoNameLabel'> {this.props.todo.name}</label>
+                    <img className='todoImage'
+                         src={'garbage.svg'}
+                         alt={""}
+                         onClick={() => this.props.onTodoDelete(this.props.todo)}
+                    />
                 </div>
             );
         }

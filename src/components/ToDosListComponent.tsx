@@ -8,7 +8,7 @@ export interface IToDosComponentProps {
 export interface IToDosComponentState {
     toDoName: string;
     TODOS: { id: number; name: string; isDone: boolean }[];
-    isFindEvent: boolean;
+
 }
 
 export class ToDosListComponent extends Component<IToDosComponentProps, IToDosComponentState> {
@@ -32,8 +32,7 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
                     name: "Go sleep",
                     isDone: true
                 }
-            ],
-            isFindEvent: false
+            ]
         };
         this.addToDo = this.addToDo.bind(this);
     }
@@ -54,7 +53,7 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
                     <button onClick={this.addToDo}><img src='plus.svg' height='25px' width='25px'/></button>
                 </div>
                 {this.getTODOS().map((el) => {
-                    return <ToDoComponent todo={el} onTodoToggle={this.setIsDone}/>
+                    return <ToDoComponent todo={el} onTodoToggle={this.setIsDone} onTodoDelete={this.todoDelete}/>
                 })}
             </div>)
     }
@@ -76,7 +75,7 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
 
 
     private setToDoName(value: string) {
-        this.setState({toDoName: value, isFindEvent:false})
+        this.setState({toDoName: value})
 
     }
 
@@ -85,5 +84,11 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
 
         return this.state.TODOS.filter(element => element.name.includes(toDoName))
 
+    }
+
+    private todoDelete = (todo:any) => {
+        this.setState({
+            TODOS: this.state.TODOS.filter(element => element !==todo)}
+        );
     }
 }
