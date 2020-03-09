@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import {ToDoComponent} from "./ToDoComponent";
 
 
+
+
 export interface IToDosComponentProps {
 }
 
 export interface IToDosComponentState {
     toDoName: string;
+    errorMessage: string,
     TODOS: { id: number; name: string; isDone: boolean }[];
 
 }
@@ -16,7 +19,7 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
     constructor(props: any) {
         super(props);
         this.state = {
-            toDoName: "", TODOS: [
+            toDoName: "", errorMessage: "", TODOS: [
                 {
                     id: 0,
                     name: "Clean room",
@@ -47,6 +50,7 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
                         type='text'
                         placeholder="Enter new task"
                         onChange={event => this.setToDoName(event.target.value)}/>
+                        <span className="errorMessage">{this.state.errorMessage}</span>
 
 
 
@@ -65,13 +69,17 @@ export class ToDosListComponent extends Component<IToDosComponentProps, IToDosCo
     }
 
     private addToDo() {
-
+        if(this.state.toDoName === "") {
+            this.setState( {
+                errorMessage:"This field can not be empty"
+            })
+        } else {
         let id = this.state.TODOS.length;
         this.setState(state => {
             return {
-                ...state, TODOS: [...state.TODOS, {id: id, name: this.state.toDoName, isDone:false}], toDoName:""}
+                ...state, TODOS: [...state.TODOS, {id: id, name: this.state.toDoName, isDone:false}], toDoName:"", errorMessage:""}
         })
-    }
+    }}
 
 
     private setToDoName(value: string) {
